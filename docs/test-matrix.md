@@ -27,3 +27,21 @@ Every scenario with its expected value. Updated in the same commit as the tests.
 | Block overlap with window (before, partial start, inside, partial end, after, enclosing) | any-part overlap; block ending at window start does not overlap | TimeWindowTests | ✅ |
 | Overlap checked on the given date only | next-day window not matched | TimeWindowTests | ✅ |
 | Empty or out-of-range window | throws | TimeWindowTests | ✅ |
+
+## Standard Hourly (car rates unless noted; reference week Mon 2026-03-02)
+| Scenario | Expected | Test class | Status |
+|---|---|---|---|
+| Rate schedule hour 1 / 2 / 3 / 10 / 48; hour 0 | 5 / 3 / 2 / 2 / 2; throws | HourlyRateScheduleTests | ✅ |
+| Spec example Mon 06:30-08:30 | $12.00 | StandardHourlyPolicyTests | ✅ |
+| Off-peak 0 min, 1 min, 1h, 1h01, 2h, 3h, 5h | 5, 5, 5, 8, 8, 10, 14 | StandardHourlyPolicyTests | ✅ |
+| Peak edges: block 06:00-07:00 / 06:59-07:59 / 07:00-08:00 / 09:00-10:00 / 10:00-11:00 | 5 / 7.50 / 7.50 / 7.50 / 5 | StandardHourlyPolicyTests, WeekdayPeakRuleTests | ✅ |
+| Peak edges evening: 15:00-16:00 / 16:00-17:00 / 18:00-19:00 / 19:00-20:00 | 5 / 7.50 / 7.50 / 5 | StandardHourlyPolicyTests | ✅ |
+| Surcharge per block: 15:30-17:30; 14:00-17:00 | 12.00; 11.00 | StandardHourlyPolicyTests | ✅ |
+| Weekend (Sat 07:00, Sun 16:00); public holiday | no surcharge | StandardHourlyPolicyTests, WeekdayPeakRuleTests | ✅ |
+| Fri 18:30-19:30 vs Sat 18:30-19:30 | 7.50 vs 5.00 | StandardHourlyPolicyTests | ✅ |
+| Sun 23:30 to Mon 07:30 (weekend into weekday peak) | 21.00 | StandardHourlyPolicyTests | ✅ |
+| Mon 08:00 to Wed 08:00 (48 blocks, 12 peak) | 114.00 | StandardHourlyPolicyTests | ✅ |
+| Same, Tuesday a holiday | 108.00 | StandardHourlyPolicyTests | ✅ |
+| Mon 11:00 to Tue 12:00 (more than 24h, 25 blocks, 6 peak) | 60.00 | StandardHourlyPolicyTests | ✅ |
+| Vehicle multiplier on spec example: Motorcycle / Car / Bus | 9.60 / 12.00 / 24.00 | StandardHourlyPolicyTests | ✅ |
+| Loyalty tier ignored | 12.00 | StandardHourlyPolicyTests | ✅ |
