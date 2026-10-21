@@ -1,3 +1,4 @@
+
 namespace SmartParking.Domain;
 
 /// <summary>A completed stay: a ticket plus the time the vehicle left.</summary>

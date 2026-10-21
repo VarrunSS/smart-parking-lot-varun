@@ -1,6 +1,7 @@
 using SmartParking.Domain;
+using SmartParking.Pricing;
 
-namespace SmartParking.Pricing;
+namespace SmartParking.Billing;
 
 public sealed record FareQuote(string PolicyName, Money Fee);
 

@@ -1,8 +1,9 @@
-using SmartParking.Pricing;
+using SmartParking.Calendar;
+using SmartParking.Rules;
 using SmartParking.Tests.Support;
 using static SmartParking.Tests.Support.Sessions;
 
-namespace SmartParking.Tests.Pricing;
+namespace SmartParking.Tests.Rules;
 
 public class WeekdayPeakRuleTests
 {

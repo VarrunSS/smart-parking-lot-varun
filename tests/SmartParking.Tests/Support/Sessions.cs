@@ -1,5 +1,5 @@
+using SmartParking.Calendar;
 using SmartParking.Domain;
-using SmartParking.Pricing;
 
 namespace SmartParking.Tests.Support;
 

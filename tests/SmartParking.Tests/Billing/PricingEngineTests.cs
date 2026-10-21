@@ -1,8 +1,9 @@
+using SmartParking.Billing;
 using SmartParking.Domain;
 using SmartParking.Pricing;
 using static SmartParking.Tests.Support.Sessions;
 
-namespace SmartParking.Tests.Pricing;
+namespace SmartParking.Tests.Billing;
 
 public class PricingEngineTests
 {

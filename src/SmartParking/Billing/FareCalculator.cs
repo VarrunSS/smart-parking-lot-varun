@@ -1,7 +1,6 @@
 using SmartParking.Domain;
-using SmartParking.Pricing;
 
-namespace SmartParking.Facility;
+namespace SmartParking.Billing;
 
 /// <summary>Entry point at the exit gate: turns a ticket and an exit time into the final fare.</summary>
 public sealed class FareCalculator(PricingEngine pricing)

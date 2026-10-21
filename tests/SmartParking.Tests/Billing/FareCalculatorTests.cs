@@ -1,9 +1,8 @@
+using SmartParking.Billing;
 using SmartParking.Domain;
-using SmartParking.Facility;
-using SmartParking.Pricing;
 using static SmartParking.Tests.Support.Sessions;
 
-namespace SmartParking.Tests.Facility;
+namespace SmartParking.Tests.Billing;
 
 public class FareCalculatorTests
 {

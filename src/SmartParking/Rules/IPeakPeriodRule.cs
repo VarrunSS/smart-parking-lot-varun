@@ -1,4 +1,5 @@
-namespace SmartParking.Pricing;
+
+namespace SmartParking.Rules;
 
 public interface IPeakPeriodRule
 {

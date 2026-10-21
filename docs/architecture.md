@@ -2,14 +2,27 @@
 
 ## Shape
 ```
-FareCalculator (Facility)          ticket + exit time -> FareQuote
+FareCalculator (Billing)            ticket + exit time -> FareQuote
    └─ PricingEngine                evaluates every IPricingPolicy, returns the cheapest applicable
         ├─ StandardHourlyPolicy    always applies; floating 1h blocks + peak surcharge
         ├─ EarlyBirdPolicy  ┐      both extend DiscountedFlatRatePolicy:
         └─ NightOwlPolicy   ┘      24h guard + vehicle multiplier + loyalty discount, subclass supplies IsEligible
 PricingEngineFactory               the only place that lists active policies
 ```
-Domain value objects (`Money`, `VehicleType`, `LoyaltyTier`, `TimeWindow`, `HourlyRateSchedule`) hold state and tiny pure behaviour. `Ticket` and `ParkingSession` guard their invariants (spot fits vehicle; exit not before entry).
+Value objects (`Money`, `VehicleType`, `LoyaltyTier`, `TimeWindow`, `HourlyRateSchedule`) hold state and tiny pure behaviour. `Ticket` and `ParkingSession` guard their invariants (spot fits vehicle; exit not before entry).
+
+## Folders (src/SmartParking)
+| Folder | Contents | Depends on |
+|---|---|---|
+| `Domain/` | `Money`, `Ticket`, `ParkingSession`, `VehicleType`, `SpotType`, `LoyaltyTier`, exceptions | nothing |
+| `Calendar/` | `IHolidayCalendar`, `EmptyHolidayCalendar`, `TimeWindow` | nothing |
+| `Rules/` | `IPeakPeriodRule`, `WeekdayPeakRule` | Calendar |
+| `Pricing/` | `IPricingPolicy`, `StandardHourlyPolicy`, `HourlyRateSchedule`, `DiscountedFlatRatePolicy`, `EarlyBirdPolicy`, `NightOwlPolicy` | Domain, Calendar, Rules |
+| `Billing/` | `PricingEngine` (+`FareQuote`), `PricingEngineFactory`, `FareCalculator` | Pricing, Domain, Calendar |
+
+Dependencies point one way: `Billing -> Pricing -> Rules -> Calendar -> Domain`. Tests mirror these folders.
+
+DDD mapping: value objects (`Money`, `VehicleType`, `LoyaltyTier`, `TimeWindow`, `ParkingSession`), entity (`Ticket`, identified by id), domain services (`PricingEngine`, the policies), port (`IHolidayCalendar`, owned by the domain, implemented by the caller), application service (`FareCalculator`). Repositories, domain events and aggregates are not built: nothing is persisted (YAGNI).
 
 ## Patterns and why
 | Pattern | Where | Reason |

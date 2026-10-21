@@ -1,8 +1,10 @@
+using SmartParking.Billing;
+using SmartParking.Calendar;
 using SmartParking.Domain;
 using SmartParking.Pricing;
 using static SmartParking.Tests.Support.Sessions;
 
-namespace SmartParking.Tests.Pricing;
+namespace SmartParking.Tests.Billing;
 
 /// <summary>End-to-end fares from the default policy set, including the spec's best-value scenarios.</summary>
 public class DefaultPricingScenarioTests

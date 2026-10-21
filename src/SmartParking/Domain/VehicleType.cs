@@ -1,3 +1,4 @@
+
 namespace SmartParking.Domain;
 
 /// <summary>

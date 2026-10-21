@@ -1,3 +1,4 @@
+
 namespace SmartParking.Domain;
 
 /// <summary>USD amount. Arithmetic stays exact; call <see cref="Rounded"/> once when a fee is final.</summary>

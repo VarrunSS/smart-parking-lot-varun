@@ -1,4 +1,7 @@
-namespace SmartParking.Pricing;
+using SmartParking.Calendar;
+using SmartParking.Pricing;
+
+namespace SmartParking.Billing;
 
 /// <summary>The single place that lists the active policies. Order matters: it breaks fare ties.</summary>
 public static class PricingEngineFactory

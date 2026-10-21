@@ -1,5 +1,7 @@
+using SmartParking.Calendar;
 using SmartParking.Domain;
 using SmartParking.Pricing;
+using SmartParking.Rules;
 using SmartParking.Tests.Support;
 using static SmartParking.Tests.Support.Sessions;
 

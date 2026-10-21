@@ -1,6 +1,6 @@
-using SmartParking.Domain;
+using SmartParking.Calendar;
 
-namespace SmartParking.Tests.Domain;
+namespace SmartParking.Tests.Calendar;
 
 public class TimeWindowTests
 {

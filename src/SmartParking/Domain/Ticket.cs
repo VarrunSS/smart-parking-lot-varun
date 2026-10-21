@@ -1,3 +1,4 @@
+
 namespace SmartParking.Domain;
 
 /// <summary>Issued at entry. Guarantees the vehicle fits the spot it was assigned.</summary>

@@ -1,6 +1,6 @@
-using SmartParking.Domain;
+using SmartParking.Calendar;
 
-namespace SmartParking.Pricing;
+namespace SmartParking.Rules;
 
 /// <summary>Peak windows apply only on weekdays (Mon-Fri) that are not public holidays.</summary>
 public sealed class WeekdayPeakRule(IHolidayCalendar holidays, IReadOnlyList<TimeWindow> windows) : IPeakPeriodRule

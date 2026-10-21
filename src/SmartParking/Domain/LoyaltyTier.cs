@@ -1,3 +1,4 @@
+
 namespace SmartParking.Domain;
 
 public sealed record LoyaltyTier
