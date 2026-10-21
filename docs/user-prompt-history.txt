@@ -1,0 +1,38 @@
+﻿Goal: I want to create a backend class lib using dotnet. application details are available in "The Smart Parking Lot_v2" pdf and assignment intructions are present in "Assignment_Instructions".
+
+
+Ask: Before you start coding, let me know your understanding of the requirement, any gaps or assumptions.
+
+
+
+
+---------------------------------
+
+
+ you can go with defaults.
+
+
+  /plan Create a detailed plan for above project.
+  - Use the best industry standards of claude when structuring the files & folders, like hooks, skills, agents, docs. Keep the claude.md lean and make use of references. Review agent should catch and verify if any bugs comes up
+  - All tests should be updated frequently to cover all scenarios
+  - Maintain clean codebase, ensure SOLID, KISS and YAGNI principles are followed
+  - If policy or vehicles are added/ removed, code should be flexible enough to accommodate the change - should leverage polymorphism/oops, factory/strategy pattern
+  - Also include key details provided in "Assignment_Instructions" document if not already covered
+
+
+---------------------------------
+
+
+/plan Can you group the files properly in 'SmartParking'? right now everything is sitting in a folder. are you following best DDD patterns
+
+
+---------------------------------
+
+
+why is IHolidayCalendar inside Pricing? Can we move it outside inside calendar folder? instead of nested folders, why not keep billing, pricing, rules, domain, calendar? thoughts?
+
+
+---------------------------------
+
+
+plan sounds good. let's make this change
