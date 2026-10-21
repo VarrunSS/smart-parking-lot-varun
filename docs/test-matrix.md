@@ -84,3 +84,11 @@ Every scenario with its expected value. Updated in the same commit as the tests.
 | Vehicle multiplier 0 or negative; blank vehicle or tier name | throws | VehicleTypeTests, LoyaltyTierTests | ✅ |
 | Negative hourly rate; peak multiplier 0 or negative | throws | HourlyRateScheduleTests, StandardHourlyPolicyTests | ✅ |
 | Entry 06:30, exit 06:40: whole floating block judged for peak | 7.50 (documented spec reading) | StandardHourlyPolicyTests | ✅ |
+
+## FareCalculator facade
+| Scenario | Expected | Test class | Status |
+|---|---|---|---|
+| Silver car Mon 06:30-16:00 through the facade | Early Bird 13.50 | FareCalculatorTests | ✅ |
+| Exit before entry | `InvalidParkingSessionException` | FareCalculatorTests | ✅ |
+| Motorcycle / Bus spec example end-to-end | 9.60 / 24.00 | FareCalculatorTests | ✅ |
+| Vehicle added as data only (Van 1.5x) | 7.50 for 1h | FareCalculatorTests | ✅ |
