@@ -17,6 +17,12 @@ public class HourlyRateScheduleTests
     }
 
     [Fact]
+    public void Rejects_a_negative_rate()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new HourlyRateSchedule(new Money(5m), new Money(-3m), new Money(2m)));
+    }
+
+    [Fact]
     public void Rejects_hour_zero_or_negative()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => HourlyRateSchedule.Standard.RateForHour(0));

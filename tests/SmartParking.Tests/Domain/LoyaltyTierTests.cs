@@ -35,6 +35,15 @@ public class LoyaltyTierTests
     };
 
     [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void Rejects_a_blank_name(string? name)
+    {
+        Assert.ThrowsAny<ArgumentException>(() => new LoyaltyTier(name!, 0.1m));
+    }
+
+    [Theory]
     [InlineData(-0.01)]
     [InlineData(1.01)]
     public void Rejects_a_discount_outside_zero_to_one(double rate)

@@ -61,3 +61,26 @@ Every scenario with its expected value. Updated in the same commit as the tests.
 | Night Owl car tiers; Motorcycle None/Silver; Bus None/Gold | 8, 7.20, 6.40, 5.60; 6.40, 5.76; 16, 12.80 | NightOwlPolicyTests | ✅ |
 | Flat base: exactly 24h valid, 24h + 1s invalid | quote / null | DiscountedFlatRatePolicyTests | ✅ |
 | Flat base: multiplier then discount then round; not eligible | 7.20; null | DiscountedFlatRatePolicyTests | ✅ |
+
+## Engine and default policy set
+| Scenario | Expected | Test class | Status |
+|---|---|---|---|
+| Cheapest applicable policy wins; non-applicable ignored | min fee | PricingEngineTests | ✅ |
+| Tie between equal fares | first registered | PricingEngineTests | ✅ |
+| No policy applies; no policies supplied | `InvalidOperationException`; `ArgumentException` | PricingEngineTests | ✅ |
+| New policy competes without engine changes | wins if cheaper | PricingEngineTests | ✅ |
+| Spec best-value: car Mon 06:30-16:00 (hourly 31.00) | Early Bird 15.00; Silver 13.50 | DefaultPricingScenarioTests | ✅ |
+| Car Mon 08:00-09:00 | Standard Hourly 7.50 | DefaultPricingScenarioTests | ✅ |
+| Car Mon 22:00 to Tue 06:00 | Night Owl 8.00 | DefaultPricingScenarioTests | ✅ |
+| Car Mon 06:30 to Tue 16:30 (34h) | Standard Hourly only | DefaultPricingScenarioTests | ✅ |
+| Car Mon 18:00 to Tue 18:00 (exactly 24h) | Standard Hourly (matches no special) | DefaultPricingScenarioTests | ✅ |
+| Bus Mon 07:00-17:00 | Early Bird 30.00 | DefaultPricingScenarioTests | ✅ |
+| Holiday calendar injected through factory | 5.00 | DefaultPricingScenarioTests | ✅ |
+| Every `IPricingPolicy` in the assembly is registered by the factory | sets equal | DefaultPricingScenarioTests | ✅ |
+
+## Validation (from bug-reviewer finding)
+| Scenario | Expected | Test class | Status |
+|---|---|---|---|
+| Vehicle multiplier 0 or negative; blank vehicle or tier name | throws | VehicleTypeTests, LoyaltyTierTests | ✅ |
+| Negative hourly rate; peak multiplier 0 or negative | throws | HourlyRateScheduleTests, StandardHourlyPolicyTests | ✅ |
+| Entry 06:30, exit 06:40: whole floating block judged for peak | 7.50 (documented spec reading) | StandardHourlyPolicyTests | ✅ |

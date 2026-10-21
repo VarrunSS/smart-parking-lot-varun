@@ -9,6 +9,7 @@ public sealed record LoyaltyTier
 
     public LoyaltyTier(string name, decimal discountRate)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
         ArgumentOutOfRangeException.ThrowIfNegative(discountRate);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(discountRate, 1m);
         Name = name;

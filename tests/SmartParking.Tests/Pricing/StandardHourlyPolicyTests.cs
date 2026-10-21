@@ -62,6 +62,22 @@ public class StandardHourlyPolicyTests
     }
 
     [Fact]
+    public void Peak_is_judged_on_the_whole_floating_block_not_the_time_actually_parked()
+    {
+        // 06:30-06:40 leaves before 07:00, but its billed block (06:30-07:30) overlaps the window: spec's partial-overlap rule.
+        Assert.Equal(7.50m, Fee(Car(At(Monday, 6, 30), At(Monday, 6, 40))));
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1.5)]
+    public void Rejects_a_non_positive_peak_multiplier(double multiplier)
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new StandardHourlyPolicy(HourlyRateSchedule.Standard, WeekdayPeakRule.Standard(new EmptyHolidayCalendar()), (decimal)multiplier));
+    }
+
+    [Fact]
     public void No_peak_surcharge_on_weekends()
     {
         Assert.Equal(5.00m, Fee(Car(At(Saturday, 7), At(Saturday, 8))));

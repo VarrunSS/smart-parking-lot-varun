@@ -5,3 +5,4 @@ coverage/
 .vs/
 *.user
 .claude/settings.local.json
+.claude/worktrees/

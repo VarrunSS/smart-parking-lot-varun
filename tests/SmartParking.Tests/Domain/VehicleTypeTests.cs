@@ -34,6 +34,22 @@ public class VehicleTypeTests
         Assert.False(VehicleType.Bus.FitsIn(SpotType.Compact));
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void Rejects_a_non_positive_multiplier(double multiplier)
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new VehicleType("X", (decimal)multiplier, SpotType.Compact));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("  ")]
+    public void Rejects_a_blank_name(string name)
+    {
+        Assert.Throws<ArgumentException>(() => new VehicleType(name, 1m, SpotType.Compact));
+    }
+
     [Fact]
     public void A_new_vehicle_is_just_data()
     {
