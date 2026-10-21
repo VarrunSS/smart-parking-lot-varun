@@ -45,3 +45,19 @@ Every scenario with its expected value. Updated in the same commit as the tests.
 | Mon 11:00 to Tue 12:00 (more than 24h, 25 blocks, 6 peak) | 60.00 | StandardHourlyPolicyTests | ✅ |
 | Vehicle multiplier on spec example: Motorcycle / Car / Bus | 9.60 / 12.00 / 24.00 | StandardHourlyPolicyTests | ✅ |
 | Loyalty tier ignored | 12.00 | StandardHourlyPolicyTests | ✅ |
+
+## Early Bird, Night Owl, shared flat-rate base
+| Scenario | Expected | Test class | Status |
+|---|---|---|---|
+| Early Bird entry 05:59:00, 06:00, 08:59:59, 09:00 (exit 17:00) | n/a, 15, 15, n/a | EarlyBirdPolicyTests | ✅ |
+| Early Bird exit 15:29:59, 15:30, 18:59:59, 19:00 (entry 07:00) | n/a, 15, 15, n/a | EarlyBirdPolicyTests | ✅ |
+| Early Bird across two calendar days; on a Saturday | n/a; 15 | EarlyBirdPolicyTests | ✅ |
+| Early Bird tiers None/Silver/Gold/Platinum (car) | 15 / 13.50 / 12 / 10.50 | EarlyBirdPolicyTests | ✅ |
+| Early Bird Motorcycle / Bus / Bus Platinum / Motorcycle Gold | 12 / 30 / 21 / 9.60 | EarlyBirdPolicyTests | ✅ |
+| Night Owl entry 17:59:59, 18:00, 23:59:59 (exit next day 06:00) | n/a, 8, 8 | NightOwlPolicyTests | ✅ |
+| Night Owl entry Tue 00:00 | n/a | NightOwlPolicyTests | ✅ |
+| Night Owl exit 04:59:59, 05:00, 09:59:59, 10:00 | n/a, 8, 8, n/a | NightOwlPolicyTests | ✅ |
+| Night Owl exit two days later; Fri to Sat and Sat to Sun | n/a; 8, 8 | NightOwlPolicyTests | ✅ |
+| Night Owl car tiers; Motorcycle None/Silver; Bus None/Gold | 8, 7.20, 6.40, 5.60; 6.40, 5.76; 16, 12.80 | NightOwlPolicyTests | ✅ |
+| Flat base: exactly 24h valid, 24h + 1s invalid | quote / null | DiscountedFlatRatePolicyTests | ✅ |
+| Flat base: multiplier then discount then round; not eligible | 7.20; null | DiscountedFlatRatePolicyTests | ✅ |
