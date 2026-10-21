@@ -16,7 +16,7 @@ public sealed class StandardHourlyPolicy : IPricingPolicy
     private readonly IPeakPeriodRule peakRule;
     private readonly decimal peakMultiplier;
 
-    public StandardHourlyPolicy(HourlyRateSchedule schedule, IPeakPeriodRule peakRule, decimal peakMultiplier)
+    internal StandardHourlyPolicy(HourlyRateSchedule schedule, IPeakPeriodRule peakRule, decimal peakMultiplier)
     {
         ArgumentNullException.ThrowIfNull(schedule);
         ArgumentNullException.ThrowIfNull(peakRule);

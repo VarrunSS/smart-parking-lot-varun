@@ -2,7 +2,7 @@
 namespace SmartParking.Calendar;
 
 /// <summary>A daily time-of-day range, start inclusive and end exclusive. The end may be 24:00 (midnight).</summary>
-public sealed record TimeWindow
+internal sealed record TimeWindow
 {
     private static readonly TimeSpan EndOfDay = TimeSpan.FromHours(24);
 

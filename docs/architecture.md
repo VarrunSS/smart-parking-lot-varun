@@ -20,7 +20,7 @@ Value objects (`Money`, `VehicleType`, `LoyaltyTier`, `TimeWindow`, `HourlyRateS
 | `Pricing/` | `IPricingPolicy`, `StandardHourlyPolicy`, `HourlyRateSchedule`, `DiscountedFlatRatePolicy`, `EarlyBirdPolicy`, `NightOwlPolicy` | Domain, Calendar, Rules |
 | `Billing/` | `PricingEngine` (+`FareQuote`), `PricingEngineFactory`, `FareCalculator` | Pricing, Domain, Calendar |
 
-Dependencies point one way: `Billing -> Pricing -> Rules -> Calendar -> Domain`. Tests mirror these folders.
+Dependencies point one way: `Billing -> Pricing -> Rules -> Calendar -> Domain`. Tests mirror these folders. `TimeWindow`, `HourlyRateSchedule`, `IPeakPeriodRule` and `WeekdayPeakRule` are `internal` (tests see them via `InternalsVisibleTo`); `StandardHourlyPolicy.Default(holidays)` is the public way to build the hourly policy. `DiscountedFlatRatePolicy` stays public because its public subclasses cannot derive from an internal base.
 
 DDD mapping: value objects (`Money`, `VehicleType`, `LoyaltyTier`, `TimeWindow`, `ParkingSession`), entity (`Ticket`, identified by id), domain services (`PricingEngine`, the policies), port (`IHolidayCalendar`, owned by the domain, implemented by the caller), application service (`FareCalculator`). Repositories, domain events and aggregates are not built: nothing is persisted (YAGNI).
 

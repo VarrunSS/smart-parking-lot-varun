@@ -3,7 +3,7 @@ using SmartParking.Domain;
 namespace SmartParking.Pricing;
 
 /// <summary>Car rate for the n-th billable hour: first, second, then a flat rate for every later hour.</summary>
-public sealed record HourlyRateSchedule
+internal sealed record HourlyRateSchedule
 {
     public static readonly HourlyRateSchedule Standard = new(new Money(5m), new Money(3m), new Money(2m));
 

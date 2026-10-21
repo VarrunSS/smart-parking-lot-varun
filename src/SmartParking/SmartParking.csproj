@@ -4,4 +4,8 @@
     <RootNamespace>SmartParking</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="SmartParking.Tests" />
+  </ItemGroup>
+
 </Project>

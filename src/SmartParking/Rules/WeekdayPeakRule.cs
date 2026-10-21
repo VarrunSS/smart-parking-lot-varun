@@ -3,7 +3,7 @@ using SmartParking.Calendar;
 namespace SmartParking.Rules;
 
 /// <summary>Peak windows apply only on weekdays (Mon-Fri) that are not public holidays.</summary>
-public sealed class WeekdayPeakRule(IHolidayCalendar holidays, IReadOnlyList<TimeWindow> windows) : IPeakPeriodRule
+internal sealed class WeekdayPeakRule(IHolidayCalendar holidays, IReadOnlyList<TimeWindow> windows) : IPeakPeriodRule
 {
     public static WeekdayPeakRule Standard(IHolidayCalendar holidays) =>
         new(holidays, [TimeWindow.Between(7, 0, 10, 0), TimeWindow.Between(16, 0, 19, 0)]);
