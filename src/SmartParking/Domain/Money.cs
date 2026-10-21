@@ -15,8 +15,6 @@ public readonly record struct Money(decimal Amount) : IComparable<Money>
 
     public static bool operator >=(Money left, Money right) => left.Amount >= right.Amount;
 
-    public static Money Min(Money first, Money second) => first <= second ? first : second;
-
     public Money Times(decimal factor) => new(Amount * factor);
 
     public Money Rounded() => new(Math.Round(Amount, 2, MidpointRounding.AwayFromZero));

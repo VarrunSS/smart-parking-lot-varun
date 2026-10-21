@@ -92,3 +92,16 @@ Every scenario with its expected value. Updated in the same commit as the tests.
 | Exit before entry | `InvalidParkingSessionException` | FareCalculatorTests | ✅ |
 | Motorcycle / Bus spec example end-to-end | 9.60 / 24.00 | FareCalculatorTests | ✅ |
 | Vehicle added as data only (Van 1.5x) | 7.50 for 1h | FareCalculatorTests | ✅ |
+
+## Added after test-gap audit
+| Scenario | Expected | Test class | Status |
+|---|---|---|---|
+| Sun 23:30 to Mon 07:30, Monday a holiday | 20.00 (no surcharge) | StandardHourlyPolicyTests | ✅ |
+| Car Mon 18:00 to Tue 18:00 (exactly 24h) | Standard Hourly 59.50 (52 base + 2.50 + 5 peak) | DefaultPricingScenarioTests | ✅ |
+| Early Bird on a public holiday (Mon 07:00-17:00) | 15.00 beats hourly 24.00 | DefaultPricingScenarioTests | ✅ |
+| Night Owl across 31 Dec to 1 Jan; across leap day (Motorcycle Platinum) | 8.00; 4.48 | NightOwlPolicyTests | ✅ |
+| Early Bird Motorcycle Silver / Bus Gold | 10.80 / 24.00 | EarlyBirdPolicyTests | ✅ |
+| Night Owl Bus Platinum | 11.20 | NightOwlPolicyTests | ✅ |
+| Money `<`, `<=`, `>`, `>=`, `CompareTo` | ordered | MoneyTests | ✅ |
+
+Known untested by design: sub-second entry/exit instants (spec uses whole seconds), `DateTime.Kind` mixing (assumption 9), exception message/inner-exception constructors.

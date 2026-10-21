@@ -15,7 +15,7 @@ public class StandardHourlyPolicyTests
     public void Has_a_name_and_always_applies()
     {
         Assert.Equal("Standard Hourly", Policy.Name);
-        Assert.NotNull(Policy.Quote(Car(At(Monday, 11), At(Monday, 12))));
+        Assert.Equal(5.00m, Fee(Car(At(Monday, 11), At(Monday, 12))));
     }
 
     [Fact]
@@ -112,6 +112,15 @@ public class StandardHourlyPolicyTests
         // Mon 08:00 -> Wed 08:00 = 48 blocks, 12 of them peak.
         // Off-peak 36 x 2 = 72; peak: 7.50 + 4.50 + 10 x 3.00 = 42 => 114.
         Assert.Equal(114.00m, Fee(Car(At(Monday, 8), At(Monday + 2, 8))));
+    }
+
+    [Fact]
+    public void A_holiday_on_the_second_day_cancels_peak_for_a_block_crossing_midnight()
+    {
+        var policy = StandardHourlyPolicy.Default(new FakeHolidayCalendar(new DateOnly(2026, 3, Monday)));
+
+        // Sun 23:30 -> Mon 07:30, Monday a holiday: 8 blocks, 5 + 3 + 6 x 2, no surcharge.
+        Assert.Equal(20.00m, policy.Quote(Car(At(PriorSunday, 23, 30), At(Monday, 7, 30)))!.Value.Amount);
     }
 
     [Fact]

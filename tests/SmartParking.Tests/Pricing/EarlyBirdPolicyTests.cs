@@ -80,5 +80,7 @@ public class EarlyBirdPolicyTests
         { VehicleType.Bus, LoyaltyTier.None, 30.00m },
         { VehicleType.Bus, LoyaltyTier.Platinum, 21.00m },
         { VehicleType.Motorcycle, LoyaltyTier.Gold, 9.60m },
+        { VehicleType.Motorcycle, LoyaltyTier.Silver, 10.80m },
+        { VehicleType.Bus, LoyaltyTier.Gold, 24.00m },
     };
 }

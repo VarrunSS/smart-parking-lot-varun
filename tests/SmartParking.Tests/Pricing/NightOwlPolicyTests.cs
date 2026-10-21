@@ -58,6 +58,22 @@ public class NightOwlPolicyTests
         Assert.Equal(8.00m, Fee(Car(At(Saturday, 20), At(Sunday, 7))));
     }
 
+    [Fact]
+    public void Works_across_a_month_and_year_boundary()
+    {
+        var session = Car(new DateTime(2026, 12, 31, 22, 0, 0), new DateTime(2027, 1, 1, 6, 0, 0));
+
+        Assert.Equal(8.00m, Fee(session));
+    }
+
+    [Fact]
+    public void Works_across_a_leap_day()
+    {
+        var session = Of(VehicleType.Motorcycle, new DateTime(2028, 2, 28, 22, 0, 0), new DateTime(2028, 2, 29, 6, 0, 0), LoyaltyTier.Platinum);
+
+        Assert.Equal(4.48m, Fee(session));
+    }
+
     [Theory]
     [MemberData(nameof(Fees))]
     public void Applies_vehicle_multiplier_and_loyalty_discount(VehicleType vehicle, LoyaltyTier tier, decimal expected)
@@ -75,5 +91,6 @@ public class NightOwlPolicyTests
         { VehicleType.Motorcycle, LoyaltyTier.Silver, 5.76m },
         { VehicleType.Bus, LoyaltyTier.None, 16.00m },
         { VehicleType.Bus, LoyaltyTier.Gold, 12.80m },
+        { VehicleType.Bus, LoyaltyTier.Platinum, 11.20m },
     };
 }

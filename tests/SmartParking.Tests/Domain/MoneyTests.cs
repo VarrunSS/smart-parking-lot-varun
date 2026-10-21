@@ -30,8 +30,17 @@ public class MoneyTests
     [Fact]
     public void Orders_by_amount()
     {
-        Assert.True(new Money(1m) < new Money(2m));
-        Assert.Equal(new Money(1m), Money.Min(new Money(2m), new Money(1m)));
+        var one = new Money(1m);
+        var two = new Money(2m);
+
+        Assert.True(one < two);
+        Assert.True(one <= two);
+        Assert.True(two > one);
+        Assert.True(two >= one);
+        Assert.True(one <= new Money(1m));
+        Assert.True(one >= new Money(1m));
+        Assert.False(two < one);
+        Assert.True(one.CompareTo(two) < 0);
     }
 
     [Fact]

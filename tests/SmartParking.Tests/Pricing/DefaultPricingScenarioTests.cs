@@ -58,7 +58,10 @@ public class DefaultPricingScenarioTests
     public void Exactly_24_hours_keeps_specials_in_play_but_loses_to_hourly_here()
     {
         // Mon 18:00 -> Tue 18:00 matches neither special's exit window.
-        Assert.Equal("Standard Hourly", Engine.CalculateFare(Car(At(Monday, 18), At(Tuesday, 18))).PolicyName);
+        // 24 blocks: base 5 + 3 + 22 x 2 = 52; Monday 18:00 block peak +2.50; Tuesday blocks starting 07, 08, 09, 16, 17 peak +1 each.
+        var fare = Engine.CalculateFare(Car(At(Monday, 18), At(Tuesday, 18)));
+
+        Assert.Equal(new FareQuote("Standard Hourly", new Money(59.50m)), fare);
     }
 
     [Fact]
@@ -76,6 +79,15 @@ public class DefaultPricingScenarioTests
         var engine = PricingEngineFactory.CreateDefault(holiday);
 
         Assert.Equal(new Money(5m), engine.CalculateFare(Car(At(Monday, 7), At(Monday, 8))).Fee);
+    }
+
+    [Fact]
+    public void Early_bird_still_applies_on_a_public_holiday_and_beats_the_hourly_fare()
+    {
+        var engine = PricingEngineFactory.CreateDefault(new Support.FakeHolidayCalendar(new DateOnly(2026, 3, Monday)));
+
+        // Holiday hourly would be 5 + 3 + 8 x 2 = 24.
+        Assert.Equal(new FareQuote("Early Bird", new Money(15m)), engine.CalculateFare(Car(At(Monday, 7), At(Monday, 17))));
     }
 
     [Fact]
